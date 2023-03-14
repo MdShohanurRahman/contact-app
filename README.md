@@ -6,6 +6,22 @@ contact app is a web application that allows users to manage their contacts. The
 
 The app uses JSON Web Tokens (JWT) for authentication and authorization. When a user logs in to the app, the backend generates a JWT that contains the user's identity and any relevant permissions. This token is then passed to the frontend, where it is stored in the browser's local storage.
 
+## Features
+ 1. User registration with JWT authentication
+ 2. User login and logout with JWT token
+ 3. Contact creation, update, and deletion
+ 4. Contact search and filtering
+ 5. Contact sharing and collaboration
+ 6. User profile management
+
+## Technologies Used
+ 1. Node.js
+ 2. Express
+ 3. MongoDB
+ 4. JWT authentication
+ 5. HTML/CSS/JavaScript
+ 6. Bootstrap
+
 ### Backend Endpoints
 
 * public routes
