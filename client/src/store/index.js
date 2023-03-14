@@ -20,16 +20,18 @@ const mutations = {
 
 const actions = {
     async login({ commit }, { email, password }) {
-        const response = await ApiService.login(email, password)
-        if (response.success) {
-            const { token, user } = response
-            commit('setToken', token)
-            commit('setUser', user)
-            localStorage.setItem('token', token)
-            return true
-        } else {
-            return false
-        }
+        ApiService
+            .login({email, password})
+            .then(response => {
+                console.log(response)
+                const { token, user } = response.data
+                commit('setToken', token)
+                commit('setUser', user)
+                localStorage.setItem('token', token)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     },
     async logout({ commit }) {
         commit('setToken', null)

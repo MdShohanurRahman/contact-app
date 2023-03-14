@@ -1,5 +1,13 @@
 <template>
-  <form @submit.prevent="login">
+  <form @submit.prevent="signUp">
+    <div class="mb-3">
+      <label for="username" class="form-label">UserName</label>
+      <input
+          v-model="username"
+          class="form-control"
+          id="username"
+          required>
+    </div>
     <div class="mb-3">
       <label for="email" class="form-label">Email</label>
       <input
@@ -9,7 +17,6 @@
           id="email"
           aria-describedby="emailHelp"
           required>
-      <div class="invalid-feedback">Please choose a username.</div>
     </div>
     <div class="mb-3">
       <label for="password" class="form-label">Password</label>
@@ -19,8 +26,7 @@
           class="form-control"
           id="password" required>
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-    <button type="submit" class="btn btn-secondary" @click="signUp">SignUp</button>
+    <button type="submit" class="btn btn-primary">SignUp</button>
   </form>
 </template>
 
@@ -28,30 +34,25 @@
 import ApiService from "@/service/ApiService";
 
 export default {
-  name: "LoginForm",
+  name: "SignUpForm",
   data() {
     return {
-      email: '',
-      password: ''
+      username: "",
+      email: "",
+      password: ""
     }
   },
   methods: {
-    login() {
+    async signUp() {
       ApiService
-          .login({email: this.email, password: this.password})
+          .signUp({username: this.username, email: this.email, password: this.password})
           .then(response => {
-            const { accessToken } = response.data
-            localStorage.setItem('token', accessToken)
-            setTimeout(() => {
-              this.$router.push({name: "Contacts"})
-            }, 300)
+            this.$store.commit('login', response.data.accessToken)
+            this.$router.push({name: "Login"})
           })
           .catch(error => {
             console.log(error)
           })
-    },
-    signUp() {
-      this.$router.push({name: "SignUp"})
     }
   }
 }

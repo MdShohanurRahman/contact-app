@@ -9,7 +9,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-          <span class="navbar-text">shohan</span>
+          <span class="navbar-text"></span>
         </div>
       </div>
     </nav>

@@ -1,48 +1,32 @@
 import axios from 'axios'
 
-const getToken = () => {
-    return localStorage.getItem('token')
-}
-
 const apiClient = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'http://localhost:5000/api',
     headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${getToken}`
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
     }
 })
 
 export default {
-    login(credentials) {
-        return apiClient.post('/login', credentials)
-            .then(response => {
-                if (response.data.access_token) {
-                    localStorage.setItem('token', response.data.access_token)
-                }
-                return response.data
-            })
+    login(payload) {
+        return apiClient.post('/users/login', payload)
     },
-    logout() {
-        localStorage.removeItem('token')
-    },
-    refreshToken(credentials) {
-        return apiClient.post('/refresh-token', credentials)
-            .then(response => {
-                if (response.data.access_token) {
-                    localStorage.setItem('token', response.data.access_token)
-                }
-                return response.data
-            })
+    signUp(payload) {
+        return apiClient.post('/users/register', payload)
     },
     getContacts() {
         return apiClient.get('/contacts')
     },
-    addContact(contact) {
-        return apiClient.post('/contacts', contact)
+    addContact(payload) {
+        return apiClient.post('/contacts', payload)
     },
-    updateContact(contact) {
-        return apiClient.put(`/contacts/${contact.id}`, contact)
+    getContact(id) {
+        return apiClient.put(`/contacts/${id}`)
+    },
+    updateContact(id, payload) {
+        return apiClient.put(`/contacts/${id}`, payload)
     },
     deleteContact(id) {
         return apiClient.delete(`/contact/${id}`)

@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <AppNavbar/>
+    <AppNavbar v-if="showNavbar"/>
     <div class="container p-2">
       <router-view></router-view>
     </div>
@@ -14,6 +14,11 @@ export default {
   name: 'App',
   components: {
     AppNavbar
+  },
+  computed: {
+    showNavbar() {
+      return  !["/login", "/signup"].includes(this.$route.path)
+    }
   }
 }
 </script>
